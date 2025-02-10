@@ -14,18 +14,19 @@ class Account:
     def __init__(self, name, balance=0):
         self.name = name
         self.balance = balance
-        self._transaction_list = []
+        self.transaction_list = []
         print(f"Account created for {self.name}")
 
     def deposit(self, amount):
         if amount > 0:
             self.balance += amount
             self.show_balance()
-            self._transaction_list.append((pytz.utc.localize(datetime.datetime.utcnow(), amount)))   
+            self.transaction_list.append((Account._current_time(), amount))   
     
     def withdraw(self, amount):
         if 0 < amount <= self.balance:
             self.balance -= amount
+            self.transaction_list.append((Account._current_time(), -amount))
         else:
             print(f"Amount must be greater than zero and no more than your account balance")
         self.show_balance()
@@ -51,5 +52,7 @@ if __name__ == "__main__":
     aditi.deposit(1000)
     aditi.withdraw(500)
     aditi.withdraw(2000)
+
+    aditi.show_transactions()
 
 
