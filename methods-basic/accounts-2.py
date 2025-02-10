@@ -13,29 +13,30 @@ class Account:
 
     def __init__(self, name, balance=0):
         self.name = name
-        self.balance = balance
-        self.transaction_list = []
+        self.__balance = balance
+        self.__transaction_list = [(Account._current_time(), balance)]
         print(f"Account created for {self.name}")
+        self.show_balance()
 
     def deposit(self, amount):
         if amount > 0:
-            self.balance += amount
+            self.__balance += amount
             self.show_balance()
-            self.transaction_list.append((Account._current_time(), amount))   
+            self.__transaction_list.append((Account._current_time(), amount))   
     
     def withdraw(self, amount):
-        if 0 < amount <= self.balance:
-            self.balance -= amount
-            self.transaction_list.append((Account._current_time(), -amount))
+        if 0 < amount <= self.__balance:
+            self.__balance -= amount
+            self.__transaction_list.append((Account._current_time(), -amount))
         else:
             print(f"Amount must be greater than zero and no more than your account balance")
         self.show_balance()
     
     def show_balance(self):
-        print(f"Balance is {self.balance}")
+        print(f"Balance is {self.__balance}")
 
     def show_transactions(self):
-        for date, amount in self.transaction_list:
+        for date, amount in self.__transaction_list:
             if amount > 0:
                 tran_type = "deposited"
             else:
@@ -57,14 +58,10 @@ if __name__ == "__main__":
 
 
     steph = Account("Steph", 800)
-    steph.balance = 200  #The balance can be added directly and it will not be added to the transaction list.
-    # It will not conform to the transaction list. 
-    # We have a concept of mangling in Python. If you add 2 _ before the variable name, it will be mangled. 
-    # Meaning, it cannot be changed outside the class and it will not be added to the transaction list.
+    steph.__balance = 200
     steph.deposit(100)
     steph.withdraw(200)
     steph.show_transactions()
     steph.show_balance()
-
 
 
