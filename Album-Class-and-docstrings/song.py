@@ -48,8 +48,8 @@ class Artist:
     Attributes: 
         name (str): The name of the artist
         albums (List[Album]): A list of the albums by this artist
-        Methods: 
-            add_album: Used to add a new album to the list
+    Methods: 
+        add_album: Used to add a new album to the list
     """
     def __init__(self, name):
         self.name = name
@@ -73,6 +73,16 @@ def load_data():
             artist_field, album_field, year_field, song_field = tuple(line.strip('\n').split("\t"))
             year_field = int(year_field)
             print("{}:{}:{}:{}".format(artist_field, album_field, year_field, song_field))
+
+            if new_artist is None: 
+                new_artist = Artist(artist_field) 
+            elif new_artist.name != artist_field:
+                # We've just read details for a new artist
+                # Store the current album in the current artist's collection then create a new artist object
+                new_artist.add_album(new_album)
+                artist_list.append(new_artist)
+                new_artist = Artist(artist_field)
+                new_album = None
 
 if __name__ == "__main__":
     load_data()
