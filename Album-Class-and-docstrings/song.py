@@ -84,5 +84,16 @@ def load_data():
                 new_artist = Artist(artist_field)
                 new_album = None
 
+            if new_album is None:
+                new_album = Album(album_field, year_field, new_artist)
+            elif new_album.name != album_field:
+                # We've just read a new album for the current artist
+                # Store the current album in the artist's collection then create a new album object
+                new_artist.add_album(new_album)
+                new_album = Album(album_field, year_field, new_artist)
+            # Create a new song object and add it to the current album's collection
+            new_song = Song(song_field, new_artist)
+            new_album.add_song(new_song)
+
 if __name__ == "__main__":
     load_data()
