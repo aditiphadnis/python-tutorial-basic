@@ -104,6 +104,16 @@ def load_data():
             artist_list.append(new_artist)
     return artist_list
 
+def create_checkfile(artist_list):
+    """Create checkfile from object data for comparison with original file."""
+    with open("checkfile.txt", 'w') as checkfile:
+        for new_artist in artist_list:
+            for new_album in new_artist.albums:
+                for new_song in new_album.tracks:
+                    print("{0.name}\t{1.name}\t{1.year}\t{2.title}".format(new_artist, new_album, new_song), 
+                          file=checkfile)
+
 if __name__ == "__main__":
     artists = load_data()
     print(f"there are {len(artists)} artists")
+    create_checkfile(artists)
