@@ -64,6 +64,15 @@ class Artist:
         """
         self.albums.append(album)
 
+def find_object(field, object_list):
+    """ Check 'object_list' to see if an object with 'name' attribute equal to 'field' exists, return it if so """
+    for item in object_list:
+        if item.name == field:
+            return item
+    return None
+
+
+
 def load_data():
     new_artist = None
     new_album = None
@@ -77,9 +86,11 @@ def load_data():
 
             if new_artist is None: 
                 new_artist = Artist(artist_field) 
+                artist_list.append(new_artist)
             elif new_artist.name != artist_field:
                 # We've just read details for a new artist
-                # Store the current album in the current artist's collection then create a new artist object
+                #Retrieve the artist object if there is one, otherwise create a new artist object
+                new_artist = find_object(artist_list, artist_field)
                 new_artist.add_album(new_album)
                 artist_list.append(new_artist)
                 new_artist = Artist(artist_field)
