@@ -37,3 +37,19 @@ sentence = 'My name is Aarshay Jain!'
 print("FOR-loop result: " + eg2_for(sentence))
 print("LC result      : " + eg2_lc(sentence))
 
+# Example 3: Dictionary Comprehension
+
+country = ['India', 'Pakistan', 'Nepal', 'Bhutan', 'China', 'Bangladesh']
+capital = ['New Delhi', 'Islamabad','Kathmandu', 'Thimphu', 'Beijing', 'Dhaka']
+
+def eg3_for(keys, values):
+    dic = {}
+    for i in range(len(keys)):
+        dic[keys[i]] = values[i]
+    return dic
+
+def eg3_lc(keys, values):
+    return { keys[i] : values[i] for i in range(len(keys)) }
+
+print("FOR-loop result: " + str(eg3_for(country, capital)))
+print("LC result      : " + str(eg3_lc(country, capital)))
