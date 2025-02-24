@@ -9,4 +9,5 @@ while num:
 
 print("Odd number list: ", odd_nums)
 
+a = [i for i in range(1,101) if int(i**0.5)==i**0.5]
     
