@@ -21,9 +21,17 @@ print(a)
 
 df['income']=list(map(lambda x: int(x+x*0.2),df['income']))
 print(df)
+print("---------")
 
 import functools
-functools.reduce(lambda a,b: a+b,df['income'])
+result = functools.reduce(lambda a, b: a + b, df['income'])
+print(result)
+print(df['income'].dtype)  # Should be int64 or float64
+
+print("---------")
+
+df['category']=df['age'].apply(lambda x: 'Adult' if x>=18 else 'Child')
+print(df)
 
 
 a = (lambda x: x*x*x)(10)
