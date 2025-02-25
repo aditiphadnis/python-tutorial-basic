@@ -53,3 +53,8 @@ def eg3_lc(keys, values):
 
 print("FOR-loop result: " + str(eg3_for(country, capital)))
 print("LC result      : " + str(eg3_lc(country, capital)))
+
+
+def prime_num(N):
+    return [x for x in range(2, N) if all(x % y != 0 for y in range(2, int(x ** 0.5) + 1))]
+print(prime_num(20)) 
